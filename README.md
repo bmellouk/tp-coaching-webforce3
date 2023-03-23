@@ -61,7 +61,7 @@ Dans une sous directory de votre projet tp-coaching-webforce3 nommée **ansible*
 
 Trouvez le fichier ansible-2-filtre.yml qui affiche les devices en mode raw
 
-1. Analysez le fichier ansible-2-filtre.yml
+1. Analysez le fichier ansible-2-filtre.yml 
 
 ```YAML
     ---
@@ -79,6 +79,9 @@ Trouvez le fichier ansible-2-filtre.yml qui affiche les devices en mode raw
         msg: " device : {{ get_disk.stdout | get_device }}"
         # cette tache utilise le filtre get_device pour extraire le nom du périphérique à partir de fdisk et va l'afficher grace a la commande Debug
 ```
+
+#### Le fichier ansible-2-filtre.yml devrait permettre de formater un disque en récupérant sa structure et en affichant le nom du périphérique associé. Cependant, il manque des tâches pour effectuer réellement le formatage du disque.
+
 
 2. Dans la directory filter_plugins etudier le code de la fonction # get_device #la fonction get_device prend en entrée une liste de péripheriques (list_device)  qui contient des informations sur les disques et les partitions d'un       système .  Elle parcourt les informations, identifie les disques et vérifie leur format. Si un disque a un format non valide, il est ajouté à la liste de sortie.La fonction renvoie cette liste des disques ayant un format non valide.
 
@@ -128,6 +131,7 @@ class FilterModule(object):
                     device.append(inter[1][:-1]) # cette commande extrait le nom du périphérique et l'ajoute à la liste device.
            return device # renvoie la liste "device"
 ```
+
 
 3. Regardez egalement le fichier ansible.cfg, mettre des commentaires dans le README.md.
 Ce filtre doit etre utilise sur docker-x 
