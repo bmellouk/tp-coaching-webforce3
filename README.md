@@ -154,12 +154,17 @@ Vérifier avec votre navigateur en utilisant l'url http://<ip_de_votre_vm>:30101
 image
 
 Exercice 6 - Pare-feu
+
 Trouvez la commande de gestion du firewall sous ubuntu 20.04: sudo ufw [option]
 
 fermer le port 5000 en utilisant le commande:
 
-sudo ufw deny 5000 
+        sudo ufw deny 5000 
 
 autoriser le port 30101:
 
-sudo ufw allow 30101 Vérifier l'application Web sur ces ports par la commande: netsate | grep "30101"
+        sudo ufw allow 30101 
+        
+Vérifier l'application Web sur ces ports par la commande: 
+
+        netsate | grep "30101"
