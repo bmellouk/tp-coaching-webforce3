@@ -61,6 +61,8 @@ Dans une sous directory de votre projet tp-coaching-webforce3 nommée **ansible*
 
 Trouvez le fichier ansible-2-filtre.yml qui affiche les devices en mode raw
 
+1. Analysez le fichier ansible-2-filtre.yml
+
 ```YAML
     ---
 - name: format disk
@@ -76,4 +78,67 @@ Trouvez le fichier ansible-2-filtre.yml qui affiche les devices en mode raw
       debug:
         msg: " device : {{ get_disk.stdout | get_device }}"
         # cette tache utilise le filtre get_device pour extraire le nom du périphérique à partir de fdisk et va l'afficher grace a la commande Debug
+```
+
+2. Dans la directory filter_plugins etudier le code de la fonction # get_device #la fonction get_device prend en entrée une liste de péripheriques (list_device)  qui contient des informations sur les disques et les partitions d'un       système .  Elle parcourt les informations, identifie les disques et vérifie leur format. Si un disque a un format non valide, il est ajouté à la liste de sortie.La fonction renvoie cette liste des disques ayant un format non valide.
+
+```Python
+from natsort import natsorted
+import subprocess
+import re
+class FilterModule(object):
+    def filters(self):
+        return {
+            'a_filter': self.a_filter,
+            'latest_version': self.latest_version,
+            'get_device': self.get_device
+        }
+    def a_filter(self, a_variable):
+        a_new_variable = a_variable + ' CRAZY NEW FILTER'
+        return a_new_variable
+    def latest_version(self, list_of_version):
+        array = list_of_version.split("\n")
+        sorted = natsorted(array)
+        res = sorted[::-1]
+        for val in res:
+            list_of_version = val
+            if len(list_of_version) == 4:
+                m = re.search(r'^(v\d{1}.\d{1})', list_of_version)
+                if m.group(0):
+                    break
+       return list_of_version
+    def get_device(self, list_device):
+           disk = [] #initialiser une liste vide disk
+           device = [] #initialiser une liste vide device
+           flag = 0 # initialiser une variable "flag" à 0
+           type_format = ['swap','ext4','xfs','dos', 'squashfs' ] # contient les noms des formats de système de fichiers que le code doit ignorer.
+           line = list_device.split('\n')  #divise chaque chaîne de caractères de la liste "list_device" en une liste de lignes 
+           for i in line: #cherche toutes les lignes qui contiennent "Disk /" 
+               if 'Disk /' in i:
+                  disk.append(i) # en les ajoutant à la liste "disk".
+           disk = reversed(disk) # La liste "disk" est inversée.
+           for v in disk:
+               inter = v.split()
+               cmd = "lsblk -f {}".format(inter[1][:-1]) # Permet d'obtenir des informations sur chaque disque,en passant le nom du disque dur comme arg
+               check_blk = str(subprocess.check_output(cmd,shell=True)) #La sortie de la commande lsblk est stockée dans la variable check_blk.
+               for val in type_format: # Si le format de système de fichiers n'est pas dans la liste "type_format", le périphérique est ajouté à "device"
+                   if val in check_blk:
+                       flag = 1 # Si le format n'est pas autorisé, la variable flag est mise à 1
+               if flag == 0:
+                    device.append(inter[1][:-1]) # cette commande extrait le nom du périphérique et l'ajoute à la liste device.
+           return device # renvoie la liste "device"
+```
+
+3. Regardez egalement le fichier ansible.cfg, mettre des commentaires dans le README.md.
+Ce filtre doit etre utilise sur docker-x 
+
+``` shell
+[defaults]#section qui contient les options par défaut pour tous les hôtes gérés par Ansible.
+deprecation_warnings=False #désactive les avertissements de dépréciation
+host_key_checking=False #désactive lla vérification des clés hôtes SSH
+ssh_args = -o ControlMaster=auto -o ControlPersist=30m #définit des arguments SSH spécifiques. ControlMaster=auto active la mise en cache des connexions SSH pour améliorer les performances, tandis que ControlPersist=30m conserve la connexion SSH active pendant 30 minutes après la fin de l'exécution d'une tâche pour éviter de rétablir la connexion à chaque fois.
+command_warnings=False #désactive les avertissements,si on souhaite exécuter des commandes à distance de manière automatisée sans être interrompu.
+pipelining=True #active le "pipelining", une technique qui permet de réduire le nombre de connexions SSH nécessaires pour exécuter une tâche sur un hôte distant, en envoyant plusieurs commandes à la fois via une seule connexion SSH.Améliore les performances.
+callback_whitelist = profile_tasks #définit une liste blanche de rappels pour la gestion des tâches.
+filter_plugins = filter_plugins #copie la valeur de la variable filter_plugins dans une nouvelle variable portant le même nom, évite de répéter le nom de la variable à chaque fois qu'elle est utilisée.
 ```
