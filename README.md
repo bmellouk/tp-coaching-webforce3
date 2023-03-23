@@ -1,5 +1,5 @@
 # tp-coaching-webforce3
-Exercice 1 - Scrum
+##Exercice 1 - Scrum
 
 1- Aller sur project
 
@@ -14,7 +14,7 @@ Exercice 1 - Scrum
 <img width="750" alt="Capture d’écran 2023-03-23 à 15 50 47" src="https://user-images.githubusercontent.com/67427059/227242049-d0242663-f61f-4c48-bb48-8b4a81cb4ff0.png">
 
 
-Exercice 2 - Linux
+##Exercice 2 - Linux
 
 1-Mettre à jour les packages de votre VM ubuntu:
 
@@ -60,7 +60,7 @@ Vérifier si flask est bien installé :
 
         flask --version
 
-Exercice 3 - Storage
+##Exercice 3 - Storage
 
 1- Rechercher le disque supplémentaire de 1Gb connecté à la VM:
 
@@ -92,7 +92,7 @@ Montez le disque sur le point de montage en utilisant la commande suivante :
 
         sudo mount /dev/vdc /home/ubuntu/tp-coaching-webforce3/log
 
-Exercice 4 - Git/Github
+##Exercice 4 - Git/Github
 
 1- Dans PyCharm allez dans File->Settings->Version control->github
 
@@ -102,7 +102,7 @@ Exercice 4 - Git/Github
 
 4- Vous pouvez maintenant faire des git commit et git push depuis PyCharm
 
-Exercice 5 - Python
+##Exercice 5 - Python
 
 Créez un fichier blogs.py
 
@@ -153,9 +153,11 @@ Vérifier avec votre navigateur en utilisant l'url http://<ip_de_votre_vm>:30101
 
 image
 
-Exercice 6 - Pare-feu
+##Exercice 6 - Pare-feu
 
-Trouvez la commande de gestion du firewall sous ubuntu 20.04: sudo ufw [option]
+Trouvez la commande de gestion du firewall sous ubuntu 20.04: 
+
+        sudo ufw [option]
 
 fermer le port 5000 en utilisant le commande:
 
