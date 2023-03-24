@@ -1,0 +1,27 @@
+---
+- name: Mettre a jour les packages ubuntu/ Vérifier la version de python3/ Créer un alias dans ~/.bashrc / Installer le package pip
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Mettre a jour les packages ubuntu
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name:  Vérifier la version de python3
+      command: python3 --version
+      register: python_version
+      changed_when: false
+
+    - name: Créer un alias dans ~/.bashrc
+      ansible.builtin.lineinfile:
+        dest: "/home/{{ ansible_user }}/.bashrc"
+        line: 'alias python="python3"'
+        state: present
+
+    - name: Installer le package pip
+      ansible.builtin.apt:
+        name: python3-pip
+        state: latest
+

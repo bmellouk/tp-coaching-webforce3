@@ -1,7 +1,7 @@
 ---
 - name: format disk
   become: true
-  hosts: almal
+  hosts: localhost
 
   tasks:
     - name: Collect only facts about hardware
