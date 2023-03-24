@@ -202,3 +202,35 @@ en s'inspirant du script ansible-2.yml
         part_type: primary
         ignore_errors: yes
 ```
+
+## TP ansible 3 
+Dans une sous directory de votre projet tp-coaching-webforce3 nommée **ansible**   
+- Créer un fichier ansible-3.yaml qui automatise l'exercice 6 ci-dessus.  
+1. activer le firewall d'ubuntu
+2. fermer le port 5000
+3. ouvrir le port 30101  
+Testez votre script
+
+
+```YAML
+
+---
+- name: Activer le firewalld'ubuntu et gerer les ports
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Activer le firewall
+      ufw:
+        state: enabled
+
+    - name: Fermer le port 5000
+      ufw:
+        rule: deny
+        port: 5000
+
+    - name: Ouvrir le port 30101
+      ufw:
+        rule: allow
+        port: 30101
+```
