@@ -146,3 +146,30 @@ pipelining=True #active le "pipelining", une technique qui permet de réduire le
 callback_whitelist = profile_tasks #définit une liste blanche de rappels pour la gestion des tâches.
 filter_plugins = filter_plugins #copie la valeur de la variable filter_plugins dans une nouvelle variable portant le même nom, évite de répéter le nom de la variable à chaque fois qu'elle est utilisée.
 ```
+
+
+4. Analysez le fichier ansible-2.yml 
+
+```YAML
+---
+- name: format disk # formater un disque
+  become: true # donne les privileges administratifs pour effectuer les opérations
+  hosts: almal
+
+  tasks:
+    - name: Collect only facts about hardware #Collecte des informations matérielles 
+      setup: # spécifie les informations système à collecter 
+        gather_subset: #collectera que les informations sur le matériel de l'hôte cible telles que le nb de processeurs, la qté de RAM,les cartes réseau..
+          - hardware
+    - name: Output disk
+      debug: # Affiche les noms des disques disponibles sur l'hôte cible
+        var: hostvars[inventory_hostname].ansible_devices.keys() | list
+    - name: parted all available disk
+      parted: # "parted" pour créer une nouvelle partition sur chaque disque disponible. 
+        device: "/dev/{{ item }}" # Le num de partition créé est 1 et l'état de la partition est défini sur "present".
+        number: 1
+        state: present
+      with_items: #  Le nom de chaque disque est déterminé en utilisant une boucle "with_items" qui parcourt la liste des clés du dictionnaire "ansible_devices" de l'hôte cible.
+        - "{{ hostvars[inventory_hostname].ansible_devices.keys() | list }}"
+      ignore_errors: yes # Ignore les erreurs qui se produisent lors de la création de partitions avec l'option 
+```
