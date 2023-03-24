@@ -173,3 +173,43 @@ filter_plugins = filter_plugins #copie la valeur de la variable filter_plugins d
         - "{{ hostvars[inventory_hostname].ansible_devices.keys() | list }}"
       ignore_errors: yes # Ignore les erreurs qui se produisent lors de la création de partitions avec l'option 
 ```
+
+
+6. Le script ansible-2-filter.yml ne formatte pas le disk. Modifier le script ansible-2-filter.yaml pour qu'il formatte le disque en
+en vous inspirant du script ansible-2.yml 
+
+```YAML
+
+---
+- name: format disk
+  become: true
+  hosts: localhost
+  tasks:
+    - name: get disk structure
+      become: true
+      command: fdisk -l
+      register: get_disk
+
+    - name: pour la mise au point
+      debug:
+        msg: " device : {{ get_disk.stdout | get_device }}"
+
+    - name: parted all available disk
+      parted:
+        device: "/dev/{{ get_disk.stdout | get_device }}"
+        number: 1
+        state: present
+        part_type: primary
+        flags: [boot]
+        ignore_errors: yes
+
+    - name: Format partition
+      command: mkfs.ext4 /dev/{{ get_disk.stdout | get_device }}1
+
+    - name: Mount partition
+      mount:
+        path: /mnt/data
+        src: /dev/{{ get_disk.stdout | get_device }}1
+        fstype: ext4
+        state: mounted
+```
