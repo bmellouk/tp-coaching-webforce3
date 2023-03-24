@@ -175,8 +175,8 @@ filter_plugins = filter_plugins #copie la valeur de la variable filter_plugins d
 ```
 
 
-6. Le script ansible-2-filter.yml ne formatte pas le disk. Modifier le script ansible-2-filter.yaml pour qu'il formatte le disque en
-en vous inspirant du script ansible-2.yml 
+6. Le script ansible-2-filter.yml ne formatt pas le disk. Ci dessous le script ansible-2-filter.yaml pour qu'il formate le disque 
+en s'inspirant du script ansible-2.yml 
 
 ```YAML
 
@@ -200,7 +200,6 @@ en vous inspirant du script ansible-2.yml
         number: 1
         state: present
         part_type: primary
-        flags: [boot]
         ignore_errors: yes
 
     - name: Format partition
