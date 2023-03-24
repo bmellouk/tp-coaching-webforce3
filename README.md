@@ -201,14 +201,4 @@ en s'inspirant du script ansible-2.yml
         state: present
         part_type: primary
         ignore_errors: yes
-
-    - name: Format partition
-      command: mkfs.ext4 /dev/{{ get_disk.stdout | get_device }}1
-
-    - name: Mount partition
-      mount:
-        path: /mnt/data
-        src: /dev/{{ get_disk.stdout | get_device }}1
-        fstype: ext4
-        state: mounted
 ```
