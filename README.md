@@ -11,8 +11,7 @@
 
 5- Faire un screenshot image
 
-<img width="750" alt="Capture d’écran 2023-03-23 à 15 50 47" src="https://user-images.githubusercontent.com/67427059/227242049-d0242663-f61f-4c48-bb48-8b4a81cb4ff0.png">
-
+<img width="1448" alt="Capture d’écran 2023-03-27 à 11 22 10" src="https://user-images.githubusercontent.com/67427059/227899793-6d3ae526-8af0-41c2-bca4-ee809d5bb175.png">
 
 ## Exercice 2 - Linux
 
