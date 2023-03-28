@@ -125,6 +125,29 @@ Tapez la commande pour voir la taille de l'image docker.
  
     docker build -t docker .
     
-<img width="704" alt="Capture d’écran 2023-03-28 à 11 46 08" src="https://user-images.githubusercontent.com/67427059/228260725-facc8427-9a83-497c-b2da-386a458cc70e.png">
+
+<img width="638" alt="Capture d’écran 2023-03-28 à 15 52 58" src="https://user-images.githubusercontent.com/67427059/228260938-5f95c3de-c934-4c0f-95f8-85cee30fd7e4.png">
 
 
+Allez dans chatGPT et tapez :      
+     **écrit un dockerfile alpine web flask python**
+     
+```sql
+FROM python:3.9.10-alpine
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN apk add --update --no-cache \
+        gcc \
+        musl-dev \
+        linux-headers \
+    && pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+
+CMD [ "python", "app.py" ]
+```     
