@@ -122,5 +122,9 @@ CMD [ "python3", "app.py" ]
 
 Faire la mise au point du script généré.  
 Tapez la commande pour voir la taille de l'image docker.   
+ 
+    docker build -t docker .
+    
+<img width="704" alt="Capture d’écran 2023-03-28 à 11 46 08" src="https://user-images.githubusercontent.com/67427059/228260725-facc8427-9a83-497c-b2da-386a458cc70e.png">
 
 
