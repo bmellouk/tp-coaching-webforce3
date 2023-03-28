@@ -90,5 +90,37 @@ Le code 2 installe Docker sur une machine Debian en utilisant le référentiel o
 En général, les deux approches sont similaires dans leur installation de Docker, mais il y a des différences dans les paquets pré-requis et la façon dont les référentiels sont ajoutés. Les deux codes ajoutent également l'utilisateur courant au groupe Docker, ce qui est une bonne pratique pour éviter d'utiliser sudo pour chaque commande Docker.
 
 
+## Exercice 8: Comparez les Dockerfiles
+
+Générer avec chatGPT le dockerfile de l'application blogs.    
+Allez dans chatGPT et tapez :      
+     **écrit un dockerfile ubuntu web flask python**  
+     
+```BASH
+# Utilisez une image Ubuntu comme base
+FROM ubuntu:latest
+
+# Mettez à jour les packages disponibles et installez Python et pip
+RUN apt-get update -y && \
+    apt-get install -y python3 python3-pip
+
+# Copiez les fichiers de l'application dans le conteneur
+COPY . /app
+
+# Définissez le répertoire de travail de l'application
+WORKDIR /app
+
+# Installez les dépendances de l'application via le fichier requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Exposez le port 5000 pour que l'application puisse être accessible depuis l'extérieur du conteneur
+EXPOSE 5000
+
+# Démarrez l'application Flask
+CMD [ "python3", "app.py" ]
+```
+
+Faire la mise au point du script généré.  
+Tapez la commande pour voir la taille de l'image docker.   
 
 
