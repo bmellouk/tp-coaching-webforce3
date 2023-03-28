@@ -170,3 +170,5 @@ Tapez la commande pour voir la taille de l'image docker.
     
 <img width="612" alt="Capture d’écran 2023-03-28 à 16 09 36" src="https://user-images.githubusercontent.com/67427059/228265699-0da83058-7029-4293-9c87-6136c79c7ef1.png">
 
+# Nous choisirons donc le dockerfile de l'image la plus petite qui est celle de alpine pour la suite du TP.
+
