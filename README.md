@@ -168,5 +168,5 @@ Tapez la commande pour voir la taille de l'image docker.
 
     docker build -t alpine .
     
-    <img width="612" alt="Capture d’écran 2023-03-28 à 16 09 36" src="https://user-images.githubusercontent.com/67427059/228265699-0da83058-7029-4293-9c87-6136c79c7ef1.png">
+<img width="612" alt="Capture d’écran 2023-03-28 à 16 09 36" src="https://user-images.githubusercontent.com/67427059/228265699-0da83058-7029-4293-9c87-6136c79c7ef1.png">
 
