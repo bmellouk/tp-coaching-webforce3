@@ -179,3 +179,7 @@ Tapez la commande pour voir la taille de l'image docker.
 Précisez la commande pour démarrer le container nommé **web** sur le port 30101.
 
     docker run --name web -p 30101:80 alpine
+    
+Vérifier les logs de votre container.
+
+    docker logs web
