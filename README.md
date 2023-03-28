@@ -270,7 +270,7 @@ alma ansible_host=172.xx.x.x ansible_ssh_user=root ansible_ssh_private_key=/home
 
 Dans role postgresql.role et dans la directory tasks 
 
-Creez un fichier nommee variables.yml , avec le code suivant: 
+Creez un fichier nommé variables.yml , avec le code suivant: 
 Etudier et commenter ce code
 ```yaml
 ---
