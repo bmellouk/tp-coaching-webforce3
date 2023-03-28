@@ -2,7 +2,7 @@
 FROM python:3.9.10-alpine
 
 # On définit le répertoire de travail pour notre application
-WORKDIR /app
+WORKDIR  /app
 
 # On copie le fichier requirements.txt dans le conteneur
 COPY requirements.txt .
@@ -17,7 +17,7 @@ RUN apk add --update --no-cache \
     && pip install --no-cache-dir -r requirements.txt
 
 # On copie tous les fichiers du répertoire actuel (.) dans le conteneur
-COPY . .
+COPY  . .
 
 # On expose le port 5000 pour permettre à l'application d'être accessible depuis l'extérieur
 EXPOSE 5000
