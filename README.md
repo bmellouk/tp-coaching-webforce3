@@ -262,21 +262,33 @@ alma ansible_host=172.xx.x.x ansible_ssh_user=root ansible_ssh_private_key=/home
      
 - faire les commandes ansible Ad-hoc pour verifier l'OS et la version almalinux 
 
-    ansible localhost -m shell -a 'cat /etc/os-release'
+        ansible localhost -m shell -a 'cat /etc/os-release'
     
-    localhost | CHANGED | rc=0 >>
-    NAME="Ubuntu"
-    VERSION="20.04.6 LTS (Focal Fossa)"
-    ID=ubuntu
-    ID_LIKE=debian
-    PRETTY_NAME="Ubuntu 20.04.6 LTS"
-    VERSION_ID="20.04"
-    HOME_URL="https://www.ubuntu.com/"
-    SUPPORT_URL="https://help.ubuntu.com/"
-    BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-    PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-    VERSION_CODENAME=focal
-    UBUNTU_CODENAME=focal  
+        localhost | CHANGED | rc=0 >>
+        
+        NAME="Ubuntu"
+        
+        VERSION="20.04.6 LTS (Focal Fossa)"
+        
+        ID=ubuntu
+        
+        ID_LIKE=debian
+        
+        PRETTY_NAME="Ubuntu 20.04.6 LTS"
+        
+        VERSION_ID="20.04"
+        
+        HOME_URL="https://www.ubuntu.com/"
+        
+        SUPPORT_URL="https://help.ubuntu.com/"
+        
+        BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+        
+        PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+        
+        VERSION_CODENAME=focal
+        
+        UBUNTU_CODENAME=focal  
     
 
 Dans role postgresql.role et dans la directory tasks 
