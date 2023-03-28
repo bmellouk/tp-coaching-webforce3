@@ -1,6 +1,9 @@
 # tp-coaching-webforce3
 
 ## Exercice 7: Compare les codes Ansible
+Allez dans chatGPT et tapez :  
+     **code ansible de l'installation de docker**
+
 Comparez mon code install_docker_ubuntu.yml(1) avec le code généré par chatGPT (2)
 Ajouter des commentaires
 
