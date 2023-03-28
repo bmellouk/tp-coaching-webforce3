@@ -264,43 +264,21 @@ alma ansible_host=172.xx.x.x ansible_ssh_user=root ansible_ssh_private_key=/home
 
         ansible localhost -m shell -a 'cat /etc/os-release'
     
-        localhost | CHANGED | rc=0 >>
-        
-        NAME="Ubuntu"
-        
-        VERSION="20.04.6 LTS (Focal Fossa)"
-        
-        ID=ubuntu
-        
-        ID_LIKE=debian
-        
-        PRETTY_NAME="Ubuntu 20.04.6 LTS"
-        
-        VERSION_ID="20.04"
-        
-        HOME_URL="https://www.ubuntu.com/"
-        
-        SUPPORT_URL="https://help.ubuntu.com/"
-        
-        BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-        
-        PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-        
-        VERSION_CODENAME=focal
-        
-        UBUNTU_CODENAME=focal  
-    
+      
+    <img width="704" alt="Capture d’écran 2023-03-28 à 11 46 08" src="https://user-images.githubusercontent.com/67427059/228197635-c4942fe8-5b1b-4c42-b3c2-32bdebaf29bb.png">
+
 
 Dans role postgresql.role et dans la directory tasks 
 
 Creez un fichier nommee variables.yml , avec le code suivant: 
+Etudier et commenter ce code
 ```yaml
 ---
 # Variables configuration
 - name: Include OS-specific variables (Alma)
-  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
-  when: ansible_distribution == "AlmaLinux"
+  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" #Le module "include_vars" est utilisé pour inclure un fichier de variables spécifiques à l'OS. 
+  when: ansible_distribution == "AlmaLinux" # à l'aide de la clause "when",La tâche ne s'exécutera que si la distribution Ansible est égale à "AlmaLinux"
 ```
 
-Etudier et commenter ce code    
+Ce code permet de charger des variables spécifiques à la distribution AlmaLinux si cette dernière est détectée, ce qui peut faciliter la gestion des différences de configuration entre les différentes distributions.   
  
