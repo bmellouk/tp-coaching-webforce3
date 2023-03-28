@@ -173,3 +173,113 @@ filter_plugins = filter_plugins #copie la valeur de la variable filter_plugins d
         - "{{ hostvars[inventory_hostname].ansible_devices.keys() | list }}"
       ignore_errors: yes # Ignore les erreurs qui se produisent lors de la création de partitions avec l'option 
 ```
+
+
+6. Le script ansible-2-filter.yml ne formate pas le disk. 
+7. Ci-dessous le script ansible-2-filter.yaml pour qu'il formate le disque en s'inspirant du script ansible-2.yml 
+
+```YAML
+
+---
+- name: format disk
+  become: true
+  hosts: localhost
+  tasks:
+    - name: get disk structure
+      become: true
+      command: fdisk -l
+      register: get_disk
+
+    - name: pour la mise au point
+      debug:
+        msg: " device : {{ get_disk.stdout | get_device }}"
+
+    - name: parted all available disk
+      parted:
+        device: "/dev/{{ get_disk.stdout | get_device }}"
+        number: 1
+        state: present
+        part_type: primary
+        ignore_errors: yes
+```
+
+## TP ansible 3 
+Dans une sous directory de votre projet tp-coaching-webforce3 nommée **ansible**   
+- Créer un fichier ansible-3.yaml qui automatise l'exercice 6 ci-dessus.  
+1. activer le firewall d'ubuntu
+2. fermer le port 5000
+3. ouvrir le port 30101  
+Testez votre script
+
+
+```YAML
+
+---
+- name: Activer le firewalld'ubuntu et gerer les ports
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Activer le firewall
+      ufw:
+        state: enabled
+
+    - name: Fermer le port 5000
+      ufw:
+        rule: deny
+        port: 5000
+
+    - name: Ouvrir le port 30101
+      ufw:
+        rule: allow
+        port: 30101
+```
+
+
+## TP ansible 4  inclus maintenant un container almalinux
+### Mise en place du container almalinux
+
+le fichier inventory.yaml contient le groupe alma qui contient un container comme ci-dessous
+```shell
+[alma]
+alma ansible_host=172.xx.x.x ansible_ssh_user=root ansible_ssh_private_key=/home/<surname>/.ssh/id_rsa
+```
+- Faire la commande ansible Ad-hoc pour verifier la connectivite.
+
+     ansible alma -i inventory.yaml -m ping
+     
+     
+ Dans votre home directory creez une directory webforce.
+ 
+    mkdir webforce
+    
+- Dans cette directory , creer un role postgresql.role
+
+    ansible-galaxy init postgresql.role 
+   
+- Dans la directory webforce , creer un playbook postgres.yml qui utilise le role
+
+     
+- faire les commandes ansible Ad-hoc pour verifier l'OS et la version almalinux 
+
+        ansible localhost -m shell -a 'cat /etc/os-release'
+    
+      
+    <img width="704" alt="Capture d’écran 2023-03-28 à 11 46 08" src="https://user-images.githubusercontent.com/67427059/228197635-c4942fe8-5b1b-4c42-b3c2-32bdebaf29bb.png">
+
+
+Dans role postgresql.role et dans la directory tasks 
+
+Creez un fichier nommé variables.yml , avec le code suivant: 
+Etudier et commenter ce code
+```yaml
+---
+# Variables configuration
+- name: Include OS-specific variables (Alma)
+  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" #Le module "include_vars" est utilisé pour inclure un fichier de variables spécifiques à l'OS. 
+  when: ansible_distribution == "AlmaLinux" # à l'aide de la clause "when",La tâche ne s'exécutera que si la distribution Ansible est égale à "AlmaLinux"
+```
+
+Ce code permet de charger des variables spécifiques à la distribution AlmaLinux si cette dernière est détectée, ce qui peut faciliter la gestion des différences de configuration entre les différentes distributions.   
+ 
+ Pourquoi avez vous besoin d'un handler?
