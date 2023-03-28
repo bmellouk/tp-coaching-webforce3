@@ -175,8 +175,8 @@ filter_plugins = filter_plugins #copie la valeur de la variable filter_plugins d
 ```
 
 
-6. Le script ansible-2-filter.yml ne formatt pas le disk. Ci dessous le script ansible-2-filter.yaml pour qu'il formate le disque 
-en s'inspirant du script ansible-2.yml 
+6. Le script ansible-2-filter.yml ne formate pas le disk. 
+7. Ci-dessous le script ansible-2-filter.yaml pour qu'il formate le disque en s'inspirant du script ansible-2.yml 
 
 ```YAML
 
@@ -234,3 +234,61 @@ Testez votre script
         rule: allow
         port: 30101
 ```
+
+
+## TP ansible 4  inclus maintenant un container almalinux
+### Mise en place du container almalinux
+
+le fichier inventory.yaml contient le groupe alma qui contient un container comme ci-dessous
+```shell
+[alma]
+alma ansible_host=172.xx.x.x ansible_ssh_user=root ansible_ssh_private_key=/home/<surname>/.ssh/id_rsa
+```
+- Faire la commande ansible Ad-hoc pour verifier la connectivite.
+
+     ansible alma -i inventory.yaml -m ping
+     
+     
+ Dans votre home directory creez une directory webforce.
+ 
+    mkdir webforce
+    
+- Dans cette directory , creer un role postgresql.role
+
+    ansible-galaxy init postgresql.role 
+   
+- Dans la directory webforce , creer un playbook postgres.yml qui utilise le role
+
+     
+- faire les commandes ansible Ad-hoc pour verifier l'OS et la version almalinux 
+
+    ansible localhost -m shell -a 'cat /etc/os-release'
+    
+    localhost | CHANGED | rc=0 >>
+    NAME="Ubuntu"
+    VERSION="20.04.6 LTS (Focal Fossa)"
+    ID=ubuntu
+    ID_LIKE=debian
+    PRETTY_NAME="Ubuntu 20.04.6 LTS"
+    VERSION_ID="20.04"
+    HOME_URL="https://www.ubuntu.com/"
+    SUPPORT_URL="https://help.ubuntu.com/"
+    BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+    PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+    VERSION_CODENAME=focal
+    UBUNTU_CODENAME=focal  
+    
+
+Dans role postgresql.role et dans la directory tasks 
+
+Creez un fichier nommee variables.yml , avec le code suivant: 
+```yaml
+---
+# Variables configuration
+- name: Include OS-specific variables (Alma)
+  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
+  when: ansible_distribution == "AlmaLinux"
+```
+
+Etudier et commenter ce code    
+ 
