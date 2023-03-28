@@ -7,6 +7,18 @@
       become: true
       command: fdisk -l
       register: get_disk
+
     - name: pour la mise au point
       debug:
         msg: " device : {{ get_disk.stdout | get_device }}"
+
+    - name: parted all available disk
+      parted:
+        device: "/dev/{{ get_disk.stdout | get_device }}"
+        number: 1
+        state: present
+        part_type: primary
+        ignore_errors: yes
+
+
+      

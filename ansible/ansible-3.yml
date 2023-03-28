@@ -1,0 +1,19 @@
+---
+- name: Activer le firewalld'ubuntu et gerer les ports
+  hosts: localhost
+  become: true
+  
+  tasks:
+    - name: Activer le firewall
+      ufw:
+        state: enabled
+        
+    - name: Fermer le port 5000
+      ufw:
+        rule: deny
+        port: 5000
+        
+    - name: Ouvrir le port 30101
+      ufw:
+        rule: allow
+        port: 30101
