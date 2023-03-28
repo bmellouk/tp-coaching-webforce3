@@ -246,7 +246,7 @@ alma ansible_host=172.xx.x.x ansible_ssh_user=root ansible_ssh_private_key=/home
 ```
 - Faire la commande ansible Ad-hoc pour verifier la connectivite.
 
-     ansible alma -i inventory.yaml -m ping
+      ansible alma -i inventory.yaml -m ping
      
      
  Dans votre home directory creez une directory webforce.
