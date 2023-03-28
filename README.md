@@ -282,3 +282,4 @@ Etudier et commenter ce code
 
 Ce code permet de charger des variables spécifiques à la distribution AlmaLinux si cette dernière est détectée, ce qui peut faciliter la gestion des différences de configuration entre les différentes distributions.   
  
+ Pourquoi avez vous besoin d'un handler?
