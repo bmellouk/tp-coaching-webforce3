@@ -172,3 +172,6 @@ Tapez la commande pour voir la taille de l'image docker.
 
 ### Nous choisirons donc le dockerfile de l'image la plus petite qui est celle de alpine pour la suite du TP.
 
+Précisez la commande pour démarrer le container nommé **web** sur le port 30101.
+
+    docker run --name web -p 30101:80 alpine
