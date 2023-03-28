@@ -184,15 +184,14 @@ Vérifier les logs de votre container.
 
     docker logs web
  
- 
- faire les instructions du fichier    
-   ~/tp-coaching-webforce3/projet-docker-compose/DOCKER_COMPOSE.md
-   
-   <img width="385" alt="Capture d’écran 2023-03-28 à 22 45 50" src="https://user-images.githubusercontent.com/67427059/228362741-13a43706-5b7b-4521-8e07-89faeaef16e0.png">
- 
     
 # Installation de docker-compose
 
+
+faire les instructions du fichier    
+   ~/tp-coaching-webforce3/projet-docker-compose/DOCKER_COMPOSE.md
+   
+   
 ## Commandes
 ```shell
 cd ~/tp-coaching-webforce3  # directory du projet
@@ -200,3 +199,6 @@ source venv/bin/activate    # virtualenv
 pip3 install docker-compose # install docker-compose 
 docker-compose --version    # should be version 1.29.x
 ```
+
+ <img width="385" alt="Capture d’écran 2023-03-28 à 22 45 50" src="https://user-images.githubusercontent.com/67427059/228362741-13a43706-5b7b-4521-8e07-89faeaef16e0.png">
+   
