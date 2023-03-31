@@ -282,4 +282,12 @@ Etudier et commenter ce code
 
 Ce code permet de charger des variables spécifiques à la distribution AlmaLinux si cette dernière est détectée, ce qui peut faciliter la gestion des différences de configuration entre les différentes distributions.   
  
- Pourquoi avez vous besoin d'un handler?
+ Pourquoi avez vous besoin de ce handler?
+ 
+    - name: restart postgresql
+      service:
+        name: "{{ postgresql_daemon}}"
+        state: "{{ postgresql_restarted_state }}"
+        sleep: 5
+
+L'utilisation de ce handler permet d'automatiser le processus de redémarrage de PostgreSQL et de s'assurer que le service est correctement redémarré avant de poursuivre avec d'autres tâches.
